@@ -1,4 +1,4 @@
-﻿from scipy.fftpack import fft
+from scipy.fftpack import fft
 import numpy as np
 from fractions import gcd
 
@@ -61,6 +61,8 @@ def minimizeEnergySpreadDFT(x, fs, f1, f2):
                            mX is (M/2)+1 samples long (M is to be computed)
     """
     X = fft(x)
-    M = len(X)/2
+    p1 = fs/f1
+    p2 = fs/f2
+    M = p1*p2/gcd(p1,p2)
     mX = 20*np.log10(abs(X[:M/2+1]))
     return mX
