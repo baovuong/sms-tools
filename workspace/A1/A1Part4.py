@@ -26,4 +26,8 @@ def downsampleAudio(inputFile, M):
         	M: downsampling factor (positive integer)
     """
     ## Your code here
-    withoutextension = os.path.splitext
+    fileNameParts = os.path.splitext(inputFile)    
+    fs, x = wavread(inputFile)
+    wavwrite(hopSamples(x, M), fs, fileNameParts[0] + '_downsampled' + fileNameParts[1])
+    
+    

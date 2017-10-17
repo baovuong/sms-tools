@@ -1,4 +1,4 @@
-﻿import numpy as np
+import numpy as np
 import sys
 sys.path.append('../../software/models/')
 from scipy.fftpack import fft
@@ -61,3 +61,6 @@ def zpFFTsizeExpt(x, fs):
     w1 = get_window('hamming',M)
     w2 = get_window('hamming',2*M)
     ## Your code here 
+    
+    # empty
+    return (np.zeros(1), np.zeros(1), np.zeros(1))

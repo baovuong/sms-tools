@@ -63,3 +63,4 @@ def suppressFreqDFTmodel(x, fs, N):
     outputScaleFactor = sum(w)
     
     ## Your code here
+    return np.zeros(1), np.zeros(1)

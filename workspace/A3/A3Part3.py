@@ -49,3 +49,5 @@ def testRealEven(x):
         X (numpy array, possibly complex) = The M point DFT of dftbuffer 
     """
     ## Your code here
+    
+    return False, np.zeros(1), np.array([1+1j])

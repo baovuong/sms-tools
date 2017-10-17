@@ -39,7 +39,7 @@ class TestAssignment(unittest.TestCase):
     def test_downsampleAudio(self):
         oldPath = '../../sounds/vibraphone-C6.wav'
         newPath = '../../sounds/vibraphone-C6_downsampled.wav'
-        downsampleAudio(oldPath, 2)
+        downsampleAudio(oldPath, 5)
         self.assertTrue(os.path.isfile(newPath))
 
 if __name__ == '__main__':
