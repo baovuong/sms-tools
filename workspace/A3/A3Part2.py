@@ -35,7 +35,7 @@ M = 25 samples, there are 2.5 periods in it. The minimum zero-padding length her
 
 Test case 1: For a sinusoid x with f = 100 Hz, M = 25 samples and fs = 1000 Hz, you will need to 
 zero-pad by 5 samples and compute an N = 30 point DFT. In the magnitude spectrum, you can see a 
-maximum value at bin index 3 corresponding to the frequency of 100 Hz. The output mX you return is 
+maximum value at bin index 3 correspondigcd(ng to the frequency of 100 Hz. The output mX you return is 
 16 samples in length. 
 
 Test case 2: For a sinusoid x with f = 250 Hz, M = 210 samples and fs = 10000 Hz, you will need to 
@@ -56,4 +56,11 @@ def optimalZeropad(x, fs, f):
                         x appropriately (zero-padding length to be computed). mX is (N/2)+1 samples long
     """
     ## Your code here
+    M = x.size()
+    p = fs/f
+    N = (p - (M % p)) + M
+    fftbuffer = np.zeros(N)
+    X = fft(fftbuffer)
+    mX = 20*np.log10(abs(X[:(N/2) + 1]))
+    return mX
     return np.zeros(1)
