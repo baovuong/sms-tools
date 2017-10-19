@@ -62,5 +62,6 @@ def minimizeEnergySpreadDFT(x, fs, f1, f2):
     """
     p1 = fs/f1
     p2 = fs/f2
-    M = p1*p2/gcd(p1,p2)
-    return 20*np.log10(abs(fft(x[:M])[:M/2+1]))
+    M = int(p1*p2/gcd(p1,p2))
+    X = fft(x[:M])[:M/2+1]
+    return 20*np.log10(abs(X))
