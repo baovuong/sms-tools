@@ -2,6 +2,7 @@ import os
 import unittest
 import numpy as np
 from loadTestCases import load
+import math
 
 from A3Part1 import minimizeEnergySpreadDFT
 from A3Part2 import optimalZeropad 
@@ -18,16 +19,25 @@ class TestAssignment(unittest.TestCase):
     def test_minimizeEnergySpreadDFT2(self):
         testData = load(1, 2)
         mX = minimizeEnergySpreadDFT(testData['input']['x'], testData['input']['fs'], testData['input']['f1'], testData['input']['f2'])
+
         self.assertTrue(np.allclose(testData['output'], mX))
         
     def test_optimalZeropad1(self):
         testData = load(2, 1)
         mX = optimalZeropad(testData['input']['x'], testData['input']['fs'], testData['input']['f'])
+        
+        mX[mX < -120] = -120
+        testData['output'][testData['output'] < -120] = -120 
+        
         self.assertTrue(np.allclose(testData['output'], mX))
     
     def test_optimalZeropad2(self):
         testData = load(2, 2)
         mX = optimalZeropad(testData['input']['x'], testData['input']['fs'], testData['input']['f'])
+
+        mX[mX < -120] = -120
+        testData['output'][testData['output'] < -120] = -120 
+        
         self.assertTrue(np.allclose(testData['output'], mX))
     
     def test_testRealEven1(self):
@@ -69,6 +79,15 @@ class TestAssignment(unittest.TestCase):
         self.assertTrue(np.allclose(eMX1_80, aMX1_80))
         self.assertTrue(np.allclose(eMX2_80, aMX2_80))
         self.assertTrue(np.allclose(eMX3_80, aMX3_80))
-    
+
+def zeroPadThing(x, z):
+    buffer = np.zeros(x.size + z)
+    M = x.size
+    lM = (M+1)//2
+    rM = int(math.floor(M/2)) 
+    buffer[:lM] = x[-lM:]
+    buffer[-rM:] = x[:rM]
+    return buffer
+        
 if __name__ == '__main__':
     unittest.main()
