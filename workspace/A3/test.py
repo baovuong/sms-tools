@@ -62,6 +62,10 @@ class TestAssignment(unittest.TestCase):
         data = load(4, 1)
         eY, eYfilt = data['output']
         aY, aYfilt = suppressFreqDFTmodel(data['input']['x'], data['input']['fs'], data['input']['N'])
+        
+        print 'eYfilt', eYfilt
+        print 'aYfilt', aYfilt
+        
         self.assertTrue(np.allclose(eY, aY))
         self.assertTrue(np.allclose(eYfilt, aYfilt))
 
@@ -69,6 +73,8 @@ class TestAssignment(unittest.TestCase):
         data = load(4, 2)
         eY, eYfilt = data['output']
         aY, aYfilt = suppressFreqDFTmodel(data['input']['x'], data['input']['fs'], data['input']['N'])
+        print 'eYfilt', eYfilt
+        print 'aYfilt', aYfilt
         self.assertTrue(np.allclose(eY, aY))
         self.assertTrue(np.allclose(eYfilt, aYfilt))
         
