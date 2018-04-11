@@ -51,7 +51,6 @@
     <Compile Include="A4\loadTestCases.py" />
     <Compile Include="A4\submitA4.py" />
     <Compile Include="dft.py" />
-    <Compile Include="dftModel.py" />
     <Compile Include="fourier_properties.py" />
     <Compile Include="fourier_properties2.py" />
     <Compile Include="idft.py" />
