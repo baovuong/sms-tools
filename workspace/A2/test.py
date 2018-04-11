@@ -17,9 +17,9 @@ class TestAssignment(unittest.TestCase):
     def test_genComplexSine(self):
         expected = np.array([ 1.0 + 0.j,  0.30901699 - 0.95105652j, -0.80901699 - 0.58778525j, -0.80901699 + 0.58778525j, 0.30901699 + 0.95105652j])
         actual = genComplexSine(1, 5)
-        print 'expected:', np.imag(expected)
-        print 'actual:', np.imag(actual)
-        print np.isclose(np.imag(expected), np.imag(actual))
+        print('expected:', np.imag(expected))
+        print('actual:', np.imag(actual))
+        print(np.isclose(np.imag(expected), np.imag(actual)))
         self.assertTrue(np.allclose(np.real(expected), np.real(actual)))
         self.assertTrue(np.allclose(np.imag(expected), np.imag(actual)))
 
@@ -36,8 +36,8 @@ class TestAssignment(unittest.TestCase):
     def test_genMagSpec(self):
         expected = np.array([10.0, 2.82842712, 2.0, 2.82842712])
         actual = genMagSpec(np.array([1,2,3,4]))
-        print expected
-        print actual
+        print(expected)
+        print(actual)
         self.assertTrue(np.isclose(expected, actual).all())
 
 if __name__ == '__main__':

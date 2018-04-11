@@ -1,6 +1,7 @@
 import sys
 import os
-sys.path.append('../../software/models/')
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]), 'software', 'models'))
+
 from utilFunctions import wavread
 
 """

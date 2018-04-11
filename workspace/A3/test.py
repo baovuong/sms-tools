@@ -1,4 +1,4 @@
-import os
+import os 
 import unittest
 import numpy as np
 from loadTestCases import load
@@ -63,8 +63,8 @@ class TestAssignment(unittest.TestCase):
         eY, eYfilt = data['output']
         aY, aYfilt = suppressFreqDFTmodel(data['input']['x'], data['input']['fs'], data['input']['N'])
         
-        print 'eYfilt', eYfilt
-        print 'aYfilt', aYfilt
+        print('eYfilt', eYfilt)
+        print('aYfilt', aYfilt)
         
         self.assertTrue(np.allclose(eY, aY))
         self.assertTrue(np.allclose(eYfilt, aYfilt))
@@ -73,8 +73,8 @@ class TestAssignment(unittest.TestCase):
         data = load(4, 2)
         eY, eYfilt = data['output']
         aY, aYfilt = suppressFreqDFTmodel(data['input']['x'], data['input']['fs'], data['input']['N'])
-        print 'eYfilt', eYfilt
-        print 'aYfilt', aYfilt
+        print('eYfilt', eYfilt)
+        print('aYfilt', aYfilt)
         self.assertTrue(np.allclose(eY, aY))
         self.assertTrue(np.allclose(eYfilt, aYfilt))
         

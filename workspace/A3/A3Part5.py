@@ -1,6 +1,7 @@
 import numpy as np
+import os 
 import sys
-sys.path.append('../../software/models/')
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]), 'software', 'models'))
 from scipy.fftpack import fft
 import matplotlib.pyplot as plt
 from scipy.signal import get_window
