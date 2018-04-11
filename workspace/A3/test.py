@@ -1,4 +1,5 @@
 import os 
+import sys 
 import unittest
 import numpy as np
 from loadTestCases import load
@@ -13,6 +14,7 @@ from A3Part5 import zpFFTsizeExpt
 class TestAssignment(unittest.TestCase):
     
     def test_minimizeEnergySpreadDFT1(self):
+        print(sys.path[0])
         testData = load(1, 1)
         mX = minimizeEnergySpreadDFT(testData['input']['x'], testData['input']['fs'], testData['input']['f1'], testData['input']['f2'])
         self.assertTrue(np.allclose(testData['output'], mX))
