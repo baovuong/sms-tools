@@ -7,3 +7,4 @@ software/models_interface/output_sounds/*.wav
 software/transformations_interface/output_sounds/*.wav
 *.suo
 env
+.ipynb_checkpoints/
