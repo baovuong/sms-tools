@@ -69,7 +69,7 @@ def suppressFreqDFTmodel(x, fs, N):
     y = dftSynth(mX, pX, M)*outputScaleFactor
     
     mXfilt = mX.copy()
-    k = np.ceil(70.0 * N / fs)
+    k = int(np.ceil(70 * N / fs))
     for i in np.arange(k+1):
         mXfilt[i] = -120
     yfilt = dftSynth(mXfilt, pX, M)*outputScaleFactor

@@ -57,7 +57,7 @@ def zpFFTsizeExpt(x, fs):
     please use it and do not modify it. 
     """
     
-    M = len(x)/2
+    M = len(x)//2
     xseg = x[:M]
     w1 = get_window('hamming',M)
     w2 = get_window('hamming',2*M)

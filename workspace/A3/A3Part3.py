@@ -62,4 +62,4 @@ def testRealEven(x):
     mX[-lM:] = temp[:lM]
     pX = np.angle(X)
     isRealEven = np.all(mX == mX[::-1]) and (pX == 0).all()
-    return str(isRealEven), dftbuffer, X
+    return isRealEven, dftbuffer, X

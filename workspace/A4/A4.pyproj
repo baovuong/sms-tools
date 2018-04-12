@@ -6,7 +6,7 @@
     <ProjectGuid>{f3d55900-3a3e-46ee-8903-6053ab274733}</ProjectGuid>
     <ProjectHome />
     <StartupFile>A4Part1.py</StartupFile>
-    <SearchPath />
+    <SearchPath>..\A4</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
@@ -25,9 +25,6 @@
     <Compile Include="A4Part4.py" />
     <Compile Include="loadTestCases.py" />
     <Compile Include="submitA4.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterpreterReference Include="MSBuild|env|F:\git\sms-tools\workspace\sandbox\sandbox.pyproj" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>

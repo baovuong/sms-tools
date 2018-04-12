@@ -5,8 +5,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{40870ad7-a5ac-499c-8d22-c253f57d202e}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>A3Part1.py</StartupFile>
-    <SearchPath />
+    <StartupFile>test.py</StartupFile>
+    <SearchPath>..\A3</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>

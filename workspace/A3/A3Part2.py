@@ -68,5 +68,5 @@ def optimalZeropad(x, fs, f):
     fftbuffer[-rM:] = x[:rM]
 
     X = fft(fftbuffer)
-    mX = 20*np.log10(abs(X[:(N/2) + 1]))
+    mX = 20*np.log10(abs(X[:int(N/2) + 1]))
     return mX
