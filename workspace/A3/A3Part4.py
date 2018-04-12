@@ -1,6 +1,7 @@
 import os 
 import sys
-sys.path.append(os.path.join(os.path.dirname(sys.path[0]), 'software', 'models'))
+sys.path.append(os.path.join(os.path.dirname(os.path.dirname(sys.path[0])), 'software', 'models'))
+
 from dftModel import dftAnal, dftSynth
 from scipy.signal import get_window
 import matplotlib.pyplot as plt
