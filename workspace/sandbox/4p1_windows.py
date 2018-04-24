@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 
 # === defining the window === 
 M = 63                             # window length
-window = get_window('hanning', M)  # window name/type
+window = get_window('blackmanharris', M)  # window name/type
 hM1 = int(math.floor((M + 1) / 2)) # middle of window (odd) 
 hM2 = int(math.floor(M/2))         # middle of window (even)
 
 
 # === to place window at zeroth location ===
 N = 512                          # fft size we want (in samples)
-hN = N/2 + 1
+hN = int(N/2)
 fftbuffer = np.zeros(N)          # buffer for fft 
 fftbuffer[:hM1] = window[hM2:]   # place window around zeroth sample (right side)
 fftbuffer[N-hM2:] = window[:hM2] # place window around zeroth sample (left side)
@@ -32,3 +32,8 @@ mX1[:hN] = mX[hN:]
 mX1[N-hN:] = mX[:hN]
 pX1[:hN] = pX[hN:]
 pX1[N-hN:] = pX[:hN]
+
+# plotting
+plt.plot(np.arange(-hN, hN)/float(N)*M, mX1-max(mX1))
+plt.axis([-20, 20, -100, 0])
+plt.show() 

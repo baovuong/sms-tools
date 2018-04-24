@@ -25,6 +25,9 @@
     <Compile Include="4p1_windows.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="4p1_windows2.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="dft.py" />
     <Compile Include="fourier_properties.py" />
     <Compile Include="fourier_properties2.py" />
