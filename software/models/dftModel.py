@@ -5,7 +5,7 @@ import numpy as np
 import math
 from scipy.fftpack import fft, ifft
 import utilFunctions as UF
-tol = 1e-14                                                      # threshold used to compute phase
+tol = 1e-14                                                 # threshold used to compute phase
 
 def dftModel(x, w, N):
 	"""
@@ -14,7 +14,7 @@ def dftModel(x, w, N):
 	returns y: output signal
 	"""
 
-	if not(UF.isPower2(N)):                                 # raise error if N not a power of twou
+	if not(UF.isPower2(N)):                                 # raise error if N not a power of two
 		raise ValueError("FFT size (N) is not a power of 2")
 
 	if (w.size > N):                                        # raise error if window size bigger than fft size
