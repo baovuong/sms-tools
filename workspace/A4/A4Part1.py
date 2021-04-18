@@ -61,4 +61,42 @@ def extractMainLobe(window, M):
     w = get_window(window, M)         # get the window 
     
     ### Your code here
-    
+    hM1 = int(math.floor((M+1)/2))
+    hM2 = int(math.floor(M/2))
+
+    N = 8*M
+    hN = int(N/2)
+    fftbuffer = np.zeros(N)
+    fftbuffer[:hM1] = w[hM2:]
+    fftbuffer[N-hM2:] = w[:hM2]
+
+    X = fft(fftbuffer)
+    absX = abs(X)
+    absX[absX<eps] = eps
+    mX = 20*np.log10(absX)
+    pX = np.angle(X)
+
+    mX1 = np.zeros(N)
+    pX1 = np.zeros(N)
+    mX1[:hN] = mX[hN:]
+    mX1[N-hN:] = mX[:hN]
+    pX1[:hN] = pX[hN:]
+    pX1[N-hN:] = pX[:hN]
+
+    thing = np.arange(-hN, hN)/float(N)*M
+
+    dydx = np.diff(mX1)/np.diff(range(len(mX1)))
+
+    t = np.argmax(mX1) + 1
+
+    while dydx[t] < 0:
+        print(dydx[t])
+        t += 1
+    print(t - np.argmax(mX1))
+        
+
+    print(dydx[np.argmax(mX1)])
+    plt.plot(thing, mX1)
+    plt.axis([-20, 20, min(mX1), max(mX1)])
+
+    plt.show()
