@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.signal import get_window
+from scipy.signal import get_window, find_peaks, find_peaks
 from scipy.fftpack import fft, fftshift
 import math
 import matplotlib.pyplot as plt
@@ -83,20 +83,18 @@ def extractMainLobe(window, M):
     pX1[:hN] = pX[hN:]
     pX1[N-hN:] = pX[:hN]
 
-    thing = np.arange(-hN, hN)/float(N)*M
+    # find maximas
+    peaks, _ = find_peaks(mX1)
 
-    dydx = np.diff(mX1)/np.diff(range(len(mX1)))
+    # get main lobe and side lobes
+    
+    main_lobe_peak = np.argmax(mX1)
+    main_lobe_peak_index = np.where(peaks == main_lobe_peak)[0][0]
+    side_lobes = [np.where(peaks == peaks[main_lobe_peak_index-1])[0][0], np.where(peaks == peaks[main_lobe_peak_index+1])[0][0]]
 
-    t = np.argmax(mX1) + 1
+    valleys, _ = find_peaks(-mX1)
+    main_lobe_sides = valleys[np.where(np.logical_and(valleys >= peaks[side_lobes[0]], valleys <= peaks[side_lobes[1]]))[0]]
 
-    while dydx[t] < 0:
-        print(dydx[t])
-        t += 1
-    print(t - np.argmax(mX1))
-        
+    main_lobe = mX1[main_lobe_sides[0]:main_lobe_sides[1]+1]
 
-    print(dydx[np.argmax(mX1)])
-    plt.plot(thing, mX1)
-    plt.axis([-20, 20, min(mX1), max(mX1)])
-
-    plt.show()
+    return main_lobe
