@@ -46,6 +46,12 @@ Due to precision differences on different machines/hardware, compared to the exp
 output values can differ by +/-10dB for SNR1 and +/-100dB for SNR2.
 """
 
+
+def energy(x):
+    return np.sum(pow(x,2))
+
+
+
 def computeSNR(inputFile, window, M, N, H):
     """
     Input:
@@ -59,4 +65,18 @@ def computeSNR(inputFile, window, M, N, H):
             The function should return a python tuple of both the SNR values (SNR1, SNR2)
             SNR1 and SNR2 are floats.
     """
-    ## your code here
+
+    if M % 2:
+        M = M - 1
+
+    fs, x = UF.wavread(inputFile)
+    w = get_window(window, M)
+    y = stft.stft(x, w, N, H)
+
+
+    x2 = x[M:-M]
+    y2 = y[M:-M]
+
+    return 10*np.log10(energy(y) / energy(x-y)), 10*np.log10(energy(y2) / energy(x2 - y2))
+
+
