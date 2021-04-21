@@ -7,6 +7,7 @@ import math
 
 from A4Part1 import extractMainLobe 
 from A4Part2 import computeSNR
+from A4Part3 import computeEngEnv
 
 class TestAssignment(unittest.TestCase):
     
@@ -40,3 +41,16 @@ class TestAssignment(unittest.TestCase):
         result = computeSNR('../../sounds/rain.wav', 'hanning', 1024, 2048, 128)
         self.assertAlmostEqual(74.631476225366825, result[0], delta=10)
         self.assertAlmostEqual(304.26918192997738,result[1], delta=100)
+
+    # Part 3
+    def test_computeEngEnv1(self):
+        result = computeEngEnv('../../sounds/piano.wav', 'blackman', 513, 1024, 128)
+        print(result)
+        self.assertEqual(69, result[:,0].size)
+        self.assertEqual(163, result[:,1].size)
+
+    def test_computeEngEnv2(self):
+        result = computeEngEnv('../../sounds/piano.wav', 'blackman', 2047, 4096, 128)
+
+    def test_computeEngEnv3(self):
+        result = computeEngEnv('../../sounds/sax-phrase-short.wav', 'hamming', 513, 2048, 256)
