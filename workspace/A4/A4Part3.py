@@ -3,6 +3,7 @@ import sys
 import numpy as np
 from scipy.signal import get_window
 import matplotlib.pyplot as plt
+import math
 
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../../software/models/'))
 import stft
@@ -65,6 +66,7 @@ test cases.You can clearly notice the sharp attacks and decay of the piano notes
 uses a larger window. You can infer the influence of window size on sharpness of the note attacks 
 and discuss it on the forums.
 """
+
 def computeEngEnv(inputFile, window, M, N, H):
     """
     Inputs:
@@ -81,5 +83,34 @@ def computeEngEnv(inputFile, window, M, N, H):
             engEnv[:,1]: Energy envelope in band 3000 < f < 10000 Hz (in dB)
     """
     
-    ### your code here
+    fs, x = UF.wavread(inputFile)
+    w = get_window(window, M, False)
+    mX, pX = stft.stftAnal(x, w, N, H)
+
+    numFrames = int(mX[:,0].size)
+    frmTime = H*np.arange(numFrames)/float(fs)                             
+    binFreq = np.arange(N/2+1)*float(fs)/N
+
+    enXLow = np.zeros(numFrames)
+    enXHigh = np.zeros(numFrames)
+    lowFreqIndexes = np.where(np.logical_and(binFreq > 0, binFreq <= 3000))
+    highFreqIndexes = np.where(np.logical_and(binFreq > 3000, binFreq <= 100000))
+    for f in np.arange(numFrames):
+        lowFrame = np.take(mX[f], lowFreqIndexes)
+        highFrame = np.take(mX[f], highFreqIndexes)
+        enXLow[f] = np.sum(abs(10**(lowFrame/20.0))**2)
+        enXHigh[f] = np.sum(abs(10**(highFrame/20.0))**2) 
     
+    limit=int(math.ceil((1.0*x.size/w.size)*(1.0*M/H)))
+
+
+    #engEnv = np.zeros((numFrames, 2))
+    engEnv = np.zeros(shape=(limit,2))
+    engEnv[:,0] = 10*np.log10(enXLow)
+    engEnv[:,1] = 10*np.log10(enXHigh)
+    plt.plot(engEnv[:,0], 'r')
+    plt.plot(engEnv[:,1], 'b')
+    plt.autoscale(tight=True)
+    plt.show()
+
+    return engEnv

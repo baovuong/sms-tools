@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.signal import get_window
+from scipy.signal import get_window, find_peaks, find_peaks
 from scipy.fftpack import fft, fftshift
 import math
 import matplotlib.pyplot as plt
@@ -61,4 +61,40 @@ def extractMainLobe(window, M):
     w = get_window(window, M)         # get the window 
     
     ### Your code here
+    hM1 = int(math.floor((M+1)/2))
+    hM2 = int(math.floor(M/2))
+
+    N = 8*M
+    hN = int(N/2)
+    fftbuffer = np.zeros(N)
+    fftbuffer[:hM1] = w[hM2:]
+    fftbuffer[N-hM2:] = w[:hM2]
+
+    X = fft(fftbuffer)
+    absX = abs(X)
+    absX[absX<eps] = eps
+    mX = 20*np.log10(absX)
+    pX = np.angle(X)
+
+    mX1 = np.zeros(N)
+    pX1 = np.zeros(N)
+    mX1[:hN] = mX[hN:]
+    mX1[N-hN:] = mX[:hN]
+    pX1[:hN] = pX[hN:]
+    pX1[N-hN:] = pX[:hN]
+
+    # find maximas
+    peaks, _ = find_peaks(mX1)
+
+    # get main lobe and side lobes
     
+    main_lobe_peak = np.argmax(mX1)
+    main_lobe_peak_index = np.where(peaks == main_lobe_peak)[0][0]
+    side_lobes = [np.where(peaks == peaks[main_lobe_peak_index-1])[0][0], np.where(peaks == peaks[main_lobe_peak_index+1])[0][0]]
+
+    valleys, _ = find_peaks(-mX1)
+    main_lobe_sides = valleys[np.where(np.logical_and(valleys >= peaks[side_lobes[0]], valleys <= peaks[side_lobes[1]]))[0]]
+
+    main_lobe = mX1[main_lobe_sides[0]:main_lobe_sides[1]+1]
+
+    return main_lobe

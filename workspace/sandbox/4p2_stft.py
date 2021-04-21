@@ -8,7 +8,8 @@ sys.path.append(os.path.join(os.path.dirname(os.path.dirname(sys.path[0])), 'sof
 import utilFunctions as UF
 import stft as STFT 
 
-inputFile = '..\\..\\sounds\\flute-A4.wav'
+
+inputFile = '../../sounds/flute-A4.wav'
 window = 'hamming'
 M = 801 
 N = 1024 
@@ -18,7 +19,7 @@ fs, x = UF.wavread(inputFile)
 
 w = get_window(window, M)
 
-mX, pX = STFT.stftAnal(x, fs, w, N, H)
+mX, pX = STFT.stftAnal(x, w, N, H)
 
-plt.plot(x)
+plt.pcolormesh(np.transpose(mX))
 plt.show()
