@@ -7,15 +7,16 @@ import dftModel as DFT
 import utilFunctions as UF
 
 fs, x = UF.wavread('../../sounds/sine-440.wav')
-M = 501
-N = 512*4
-t = -20
+M = 501     # window size
+N = 512*4   # fft size
+t = -20     # threshold for peak detection
 w = get_window('hamming', M)
 x1 = x[int(.8*fs):int(.8*fs+M)]
 mX, pX = DFT.dftAnal(x1, w, N)
 ploc = UF.peakDetection(mX, t)
 iploc, ipmag, iphase = UF.peakInterp(mX, pX, ploc)
 pmag = mX[ploc]
+print(fs * ploc/ float(N))
 
 freqaxis = fs*np.arange(N/2  +1)/float(N)
 plt.plot(freqaxis, mX)

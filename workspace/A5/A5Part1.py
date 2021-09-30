@@ -61,3 +61,20 @@ def minFreqEstErr(inputFile, f):
     t = -40
     
     ### Your code here
+    fs, x = UF.wavread(inputFile)
+
+    k = 1
+    fc = [0]
+
+    while abs(fc[0] - f) >= 0.05:
+        M = 100 * k + 1
+        N = int(pow(2, np.ceil(np.log2(M))))
+        x1 = x[int(.5*(fs-M)):int(.5*(fs+M))]
+        w = get_window(window, M)
+        mX, pX = DFT.dftAnal(x1, w, N)
+        ploc = UF.peakDetection(mX, t)
+        iploc, ipmag, iphase = UF.peakInterp(mX, pX, ploc)
+
+        fc = fs * iploc / float(N)
+        k += 1
+    return fc[0], M, N
