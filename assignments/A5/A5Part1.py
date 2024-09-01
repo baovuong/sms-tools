@@ -65,9 +65,6 @@ def minFreqEstErr(inputFile, f):
     # get wav file
     fs, x = UF.wavread(inputFile)
 
-
-    # iterate k to find the right one
-
     for k in range(1, 1000):
         # calculate M
         M = 100 * k + 1
@@ -77,18 +74,18 @@ def minFreqEstErr(inputFile, f):
 
         # calculate fEst
         w = get_window(window, M)
-        #fEst = 0
-        thing = int(.8 * fs)
+        
+        mid = int(.5 * fs)
 
-        x1 = x[thing:thing+M]
+        x1 = x[int(mid-M/2):int(mid+M/2)]
         mX, pX = DFT.dftAnal(x1, w, N)
         ploc = UF.peakDetection(mX, t)
         iploc, ipmag, ipphase = UF.peakInterp(mX, pX, ploc)
         fEst = 0
         if ploc.size > 0:
             fEst = fs * iploc[0] / float(N)
-        print(fEst, fEst - f)
-        if abs(fEst - f) < 0.05:
-            break
+            if abs(fEst - f) < 0.05:
+                print("woo!")
+                break
 
-    return 0, N, M
+    return fEst, N, M
